@@ -34,8 +34,8 @@ services:
       - ${ROOT_DIR}/library:/config
       - ${ROOT_DIR}/tvseries:/tv
       - ${ROOT_DIR}/movies:/movies
-    ports:
-      - 32400:32400
+#    ports:
+#      - 32400:32400
     restart: unless-stopped    
 
   tautulli:
