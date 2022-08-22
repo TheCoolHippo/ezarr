@@ -1,5 +1,25 @@
 ---
-version: "3.1"
+#version: "3.1"
+#services:
+#  plex:
+#    image: lscr.io/linuxserver/plex:latest
+#    container_name: plex
+#    network_mode: host
+#    environment:
+#      - PUID=${UID}
+#      - PGID=13000
+#      - VERSION=docker
+#      - PLEX_CLAIM=${PLEX_CLAIM}
+#    volumes:
+#      - ${ROOT_DIR}/docker/plex-config:/config
+#      - ${ROOT_DIR}/data/media:/data/media
+#    ports:
+#      - 32400:32400
+#    restart: unless-stopped
+
+
+
+version: "2.1"
 services:
   plex:
     image: lscr.io/linuxserver/plex:latest
@@ -7,15 +27,16 @@ services:
     network_mode: host
     environment:
       - PUID=${UID}
-      - PGID=13000
+      - PGID=1000
       - VERSION=docker
-      - PLEX_CLAIM=${PLEX_CLAIM}
+#      - PLEX_CLAIM= #optional
     volumes:
-      - ${ROOT_DIR}/docker/plex-config:/config
-      - ${ROOT_DIR}/data/media:/data/media
+      - ${ROOT_DIR}/library:/config
+      - ${ROOT_DIR}/tvseries:/tv
+      - ${ROOT_DIR}/movies:/movies
     ports:
       - 32400:32400
-    restart: unless-stopped
+    restart: unless-stopped    
 
   tautulli:
     image: lscr.io/linuxserver/tautulli:latest
@@ -122,8 +143,8 @@ services:
       - TZ=Europe/London
       - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - /${ROOT_DIR}/deluge/config:/config
-      - /${ROOT_DIR}/downloads:/downloads
+      - ${ROOT_DIR}/deluge/config:/config
+      - ${ROOT_DIR}/downloads:/downloads
     ports:
       - 8112:8112
       - 6881:6881
@@ -142,7 +163,7 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - /${ROOT_DIR}/config:/config
+      - ${ROOT_DIR}/config:/config
     ports:
       - 5055:5055
     restart: unless-stopped
