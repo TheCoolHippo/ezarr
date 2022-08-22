@@ -108,8 +108,6 @@ services:
       - 9696:9696
     restart: unless-stopped
 
-
-
 version: "2.1"
 services:
   deluge:
@@ -128,8 +126,6 @@ services:
       - 6881:6881
       - 6881:6881/udp
     restart: unless-stopped
-
-
 
 version: "2.1"
 services:
